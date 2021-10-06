@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Station Quiz</string>
+
+<!--    Navigation Route -->
+    <string name="route_title_screen">titleScreen</string>
+    <string name="route_game_screen">gameScreen</string>
 </resources>

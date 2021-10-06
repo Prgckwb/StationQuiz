@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import com.prgckwb.stationquiz.game.keioLine
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
+// ゲーム画面の組み立てコンポーザブル
 @Composable
 fun DisplayGameScreen(navController: NavController) {
     StationQuizTheme {
@@ -21,18 +22,13 @@ fun DisplayGameScreen(navController: NavController) {
                 PrintScore()
                 RandomStation()
                 WriteAnswerArea()
-
-                Button(
-                    onClick = { navController.navigate("firstScreen") },
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Text(text = "もどる",)
-                }
+                BackButton(navController)
             }
         }
     }
 }
 
+//　何問目かとスコアを表示する
 @Composable
 fun PrintScore() {
     Row(
@@ -46,6 +42,7 @@ fun PrintScore() {
 }
 
 
+//　駅をランダムで表示して、ボタンを押すとその処理を繰り返す
 @Composable
 fun RandomStation() {
     var station by remember { mutableStateOf(keioLine.random()) }
@@ -76,6 +73,7 @@ fun RandomStation() {
     }
 }
 
+// 回答欄のテキストフィールド
 @Composable
 fun WriteAnswerArea() {
     var text by remember { mutableStateOf("") }
@@ -90,8 +88,23 @@ fun WriteAnswerArea() {
     )
 }
 
+// もどるボタン
+@Composable
+fun BackButton(navController: NavController){
+    Button(
+        onClick = { navController.navigate("titleScreen") },
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(text = "もどる",)
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-//    DisplayGameScreen()
+    Column {
+        PrintScore()
+        RandomStation()
+        WriteAnswerArea()
+    }
 }

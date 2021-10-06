@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.prgckwb.stationquiz.screen.DisplayFirstScreen
 import com.prgckwb.stationquiz.screen.DisplayGameScreen
+import com.prgckwb.stationquiz.screen.DisplayTitleScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavigateManager() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "firstScreen") {
-        composable("firstScreen") { DisplayFirstScreen(navController = navController) }
+    NavHost(navController = navController, startDestination = "titleScreen") {
+        composable("titleScreen") { DisplayTitleScreen(navController = navController) }
         composable("gameScreen") { DisplayGameScreen(navController = navController) }
     }
 }
