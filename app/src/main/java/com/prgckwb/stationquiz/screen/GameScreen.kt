@@ -1,7 +1,6 @@
 package com.prgckwb.stationquiz.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -42,7 +41,7 @@ fun PrintScore(score: Int, questionNum: Int) {
 }
 
 @Composable
-fun ShowDirection(gameModel: GameModel){
+fun ShowDirection(gameModel: GameModel) {
     Text(
         text = gameModel.line.getLineDirectText(1),
         modifier = Modifier.padding(8.dp),
@@ -51,25 +50,53 @@ fun ShowDirection(gameModel: GameModel){
     )
 }
 
+@Composable
+fun OperationButtons(
+    clickEvent1: () -> Unit,
+    clickEvent2: () -> Unit
+) {
+    Row {
+        Button(onClick = clickEvent1, modifier = Modifier.fillMaxWidth(0.3f)) {
+            Text(text = "Change")
+        }
+        Spacer(modifier = Modifier.padding(8.dp))
+        Button(onClick = clickEvent2, modifier = Modifier.fillMaxWidth(0.5f)) {
+            Text(text = "Answer")
+        }
+    }
+}
+
+@Composable
+fun WriteAnswerField(text: String, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        value = text,
+        onValueChange = onValueChange,
+        label = { Text(text = "回答欄") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        maxLines = 1
+    )
+}
+
 
 //　駅をランダムで表示して、ボタンを押すとその処理を繰り返す
 @Composable
 fun PlayGame(gameModel: GameModel) {
-    var station by remember { mutableStateOf(gameModel.stationNow)}
-    var questionNum by remember { mutableStateOf(gameModel.questionNum)}
-    var score by remember { mutableStateOf(gameModel.score)}
+    var station by remember { mutableStateOf(gameModel.stationNow) }
+    var questionNum by remember { mutableStateOf(gameModel.questionNum) }
+    var score by remember { mutableStateOf(gameModel.score) }
     var text by remember { mutableStateOf("") }
 
 
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum)
-
         Spacer(modifier = Modifier.padding(16.dp))
 
 //        上り OR 下り表示
@@ -85,30 +112,19 @@ fun PlayGame(gameModel: GameModel) {
         Spacer(Modifier.padding(16.dp))
 
 //        スキップボタンと回答ボタン
-        Row(){
-            Button(onClick = {
+        OperationButtons(
+            clickEvent1 = {
                 station = gameModel.getNextStation()
                 questionNum = gameModel.getNextQuestionNum()
             },
-                modifier = Modifier.fillMaxWidth(0.3f)
-            ) {
-                Text(text = "Change")
-            }
-
-            Spacer(modifier = Modifier.padding(8.dp))
-
-            Button(onClick = {
+            clickEvent2 = {
                 station = gameModel.stationNow
                 gameModel.checkAnswer(text)
                 score = gameModel.score
                 questionNum = gameModel.questionNum
                 text = ""
-            },
-                modifier = Modifier.fillMaxWidth(0.5f)
-            ) {
-                Text(text = "Answer")
             }
-        }
+        )
 
         Spacer(modifier = Modifier.padding(8.dp))
 
@@ -118,19 +134,8 @@ fun PlayGame(gameModel: GameModel) {
             style = MaterialTheme.typography.body2
         )
 
-        OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
-            label = { Text(text = "回答欄") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            maxLines = 1
-        )
-        Column{
-            Text(text = "入力中: ${text}")
-            Text(text = "正解:  ${gameModel.stationNow.name}")
-        }
+        WriteAnswerField(text = text) { answer -> text = answer }
+        DebugText(gameModel = gameModel, text = text)
     }
 }
 
@@ -143,6 +148,14 @@ fun BackButton(navController: NavController) {
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = "もどる")
+    }
+}
+
+@Composable
+fun DebugText(gameModel: GameModel, text: String) {
+    Column {
+        Text(text = "入力中: ${text}")
+        Text(text = "正解:  ${gameModel.stationNow.name}")
     }
 }
 
