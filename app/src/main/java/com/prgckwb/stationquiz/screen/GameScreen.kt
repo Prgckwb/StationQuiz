@@ -41,6 +41,16 @@ fun PrintScore(score: Int, questionNum: Int) {
     }
 }
 
+@Composable
+fun ShowDirection(gameModel: GameModel){
+    Text(
+        text = gameModel.line.getLineDirectText(1),
+        modifier = Modifier.padding(8.dp),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.subtitle1
+    )
+}
+
 
 //　駅をランダムで表示して、ボタンを押すとその処理を繰り返す
 @Composable
@@ -60,6 +70,12 @@ fun PlayGame(gameModel: GameModel) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum)
 
+        Spacer(modifier = Modifier.padding(16.dp))
+
+//        上り OR 下り表示
+        ShowDirection(gameModel = gameModel)
+        Spacer(modifier = Modifier.padding(16.dp))
+
 //        駅名表示
         Text(
             text = gameModel.stationNow.name,
@@ -68,11 +84,14 @@ fun PlayGame(gameModel: GameModel) {
 
         Spacer(Modifier.padding(16.dp))
 
+//        スキップボタンと回答ボタン
         Row(){
             Button(onClick = {
                 station = gameModel.getNextStation()
                 questionNum = gameModel.getNextQuestionNum()
-            }) {
+            },
+                modifier = Modifier.fillMaxWidth(0.3f)
+            ) {
                 Text(text = "Change")
             }
 
@@ -84,16 +103,19 @@ fun PlayGame(gameModel: GameModel) {
                 score = gameModel.score
                 questionNum = gameModel.questionNum
                 text = ""
-            }) {
+            },
+                modifier = Modifier.fillMaxWidth(0.5f)
+            ) {
                 Text(text = "Answer")
             }
         }
 
         Spacer(modifier = Modifier.padding(8.dp))
+
         Text(
             text = "What is the next station?",
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.body2
         )
 
         OutlinedTextField(
