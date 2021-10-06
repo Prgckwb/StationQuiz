@@ -1,6 +1,7 @@
 package com.prgckwb.stationquiz.screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -61,7 +62,7 @@ fun PlayGame(gameModel: GameModel) {
 
 //        駅名表示
         Text(
-            text = station.name,
+            text = gameModel.stationNow.name,
             style = MaterialTheme.typography.h2,
         )
 
@@ -74,12 +75,14 @@ fun PlayGame(gameModel: GameModel) {
             }) {
                 Text(text = "Change")
             }
+
             Spacer(modifier = Modifier.padding(8.dp))
+
             Button(onClick = {
+                station = gameModel.stationNow
                 gameModel.checkAnswer(text)
                 score = gameModel.score
                 questionNum = gameModel.questionNum
-                station = gameModel.stationNow
                 text = ""
             }) {
                 Text(text = "Answer")
@@ -102,6 +105,10 @@ fun PlayGame(gameModel: GameModel) {
                 .padding(16.dp),
             maxLines = 1
         )
+        Column{
+            Text(text = "入力中: ${text}")
+            Text(text = "正解:  ${gameModel.stationNow.name}")
+        }
     }
 }
 
