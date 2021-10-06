@@ -2,7 +2,7 @@ package com.prgckwb.stationquiz.game
 
 class GameModel() {
     var score: Int = 0
-    var questionNum: Int = 0
+    var questionNum: Int = 1
     val line = keioLine
     var stationNow : Station = line.random()
 
@@ -18,6 +18,10 @@ class GameModel() {
         return stationNow
     }
 
+    fun getNextQuestionNum(): Int{
+        return ++questionNum
+    }
+
     fun checkAnswer(answer: String){
         if (answer == stationNow.name){
             changeScore(20)
@@ -27,4 +31,5 @@ class GameModel() {
             changeScore(-10)
         }
     }
+
 }
