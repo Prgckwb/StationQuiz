@@ -25,6 +25,6 @@ fun NavigateManager() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "firstScreen") {
         composable("firstScreen") { DisplayFirstScreen(navController = navController) }
-        composable("secondScreen") { DisplayGameScreen() }
+        composable("gameScreen") { DisplayGameScreen(navController = navController) }
     }
 }
