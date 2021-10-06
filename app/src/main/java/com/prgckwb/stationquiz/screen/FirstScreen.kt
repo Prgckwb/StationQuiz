@@ -1,15 +1,14 @@
 package com.prgckwb.stationquiz.screen
 
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.animateSizeAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,10 +21,10 @@ import com.prgckwb.stationquiz.R
 // タイトル画面の組み立てコンポーザブル
 @Composable
 fun DisplayTitleScreen(navController: NavController) {
-    Column(
-    ) {
+    Column {
         TitleText()
-        Image(painter = painterResource(id = R.drawable.wabu_star),
+        Image(
+            painter = painterResource(id = R.drawable.wabu_star),
             contentDescription = "わぶすたー",
             alignment = Alignment.Center
         )
@@ -34,7 +33,7 @@ fun DisplayTitleScreen(navController: NavController) {
 }
 
 @Composable
-fun TitleText(){
+fun TitleText() {
     Text(
         text = "Station Quiz!!",
         style = MaterialTheme.typography.h1,
@@ -46,7 +45,7 @@ fun TitleText(){
 }
 
 @Composable
-fun StartButton(navController: NavController){
+fun StartButton(navController: NavController) {
     Button(
         onClick = { navController.navigate("gameScreen") },
         modifier = Modifier
@@ -64,6 +63,6 @@ fun StartButton(navController: NavController){
 
 @Preview(showBackground = true)
 @Composable
-fun TitlePreview(){
+fun TitlePreview() {
     TitleText()
 }
