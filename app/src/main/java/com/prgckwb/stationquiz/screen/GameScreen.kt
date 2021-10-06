@@ -1,6 +1,5 @@
 package com.prgckwb.stationquiz.screen
 
-import android.widget.Space
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -90,12 +89,12 @@ fun WriteAnswerArea() {
 
 // もどるボタン
 @Composable
-fun BackButton(navController: NavController){
+fun BackButton(navController: NavController) {
     Button(
         onClick = { navController.navigate("titleScreen") },
         modifier = Modifier.padding(8.dp)
     ) {
-        Text(text = "もどる",)
+        Text(text = "もどる")
     }
 }
 
