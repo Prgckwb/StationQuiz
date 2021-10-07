@@ -10,8 +10,8 @@ data class Line(
 
     ) {
 
-    val firstStation = stations[0]
-    val lastStation = stations[stations.size - 1]
+    private val firstStation = stations[0]
+    private val lastStation = stations[stations.size - 1]
 
     fun getLineDirectText(direction: Int): String {
         return if (direction > 0) {

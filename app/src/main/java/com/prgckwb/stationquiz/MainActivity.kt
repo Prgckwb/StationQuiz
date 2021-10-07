@@ -31,12 +31,15 @@ fun NavigateManager() {
     NavHost(navController = navController, startDestination = ScreenManager.TITLE_SCREEN) {
         composable(ScreenManager.TITLE_SCREEN) { DisplayTitleScreen(navController = navController) }
         composable(ScreenManager.GAME_SCREEN) { DisplayGameScreen(navController = navController) }
-        composable(ScreenManager.DICTIONARY_SCREEN) { DisplayDictionaryScreen(navController = navController)}
+        composable(ScreenManager.DICTIONARY_SCREEN) { DisplayDictionaryScreen(navController = navController) }
         composable(
             "${ScreenManager.DICTIONARY_STATIONS_SCREEN}/{lineName}",
-            arguments = listOf(navArgument("lineName"){type = NavType.StringType})
-        ){
-            DisplayStationsScreen(navController = navController, it.arguments?.getString("lineName"))
+            arguments = listOf(navArgument("lineName") { type = NavType.StringType })
+        ) {
+            DisplayStationsScreen(
+                navController = navController,
+                it.arguments?.getString("lineName")
+            )
         }
     }
 }

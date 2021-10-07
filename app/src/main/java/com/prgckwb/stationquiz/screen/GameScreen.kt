@@ -38,14 +38,14 @@ fun PrintScore(score: Int, questionNum: Int) {
             .padding(8.dp)
     ) {
         Text(text = "${questionNum}問目", Modifier.fillMaxWidth(0.5f))
-        Text(text = "Score : ${score}", Modifier.fillMaxWidth(0.5f))
+        Text(text = "Score : $score", Modifier.fillMaxWidth(0.5f))
     }
 }
 
 //　路線名と方向（上り方面か下り方面か）を表示
 @Composable
-fun ShowLineAndDirection(gameModel: GameModel){
-    Column() {
+fun ShowLineAndDirection(gameModel: GameModel) {
+    Column {
         Text(
             text = gameModel.line.lineName,
             style = MaterialTheme.typography.h5,
@@ -115,7 +115,7 @@ fun PlayGame(gameModel: GameModel) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum)
         Spacer(modifier = Modifier.padding(16.dp))
-        
+
         ShowLineAndDirection(gameModel = gameModel)
         Spacer(modifier = Modifier.padding(16.dp))
 
@@ -171,7 +171,7 @@ fun BackButton(navController: NavController) {
 @Composable
 fun DebugText(gameModel: GameModel, text: String, step: Int) {
     Column {
-        Text(text = "入力中: ${text}")
+        Text(text = "入力中: $text")
         Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex + step) % gameModel.stationsNum].name}")
     }
 }

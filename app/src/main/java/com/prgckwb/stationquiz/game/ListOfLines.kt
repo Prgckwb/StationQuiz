@@ -306,7 +306,7 @@ val allLinesList = listOf(
             Station("辰巳"),
             Station("新木場"),
 
-        )
+            )
     ),
 
     Line(
