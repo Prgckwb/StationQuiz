@@ -5,7 +5,7 @@ import kotlin.random.Random
 class GameModel() {
     var score: Int = 0
     var questionNum: Int = 1
-    val line = keioLine
+    val line = allLinesList[Random.nextInt(allLinesList.size)]
     val stationsNum = line.stations.size
     var stationIndex = Random.nextInt(stationsNum)
     var stationNow : Station = line.stations[stationIndex]

@@ -51,10 +51,11 @@ fun StartButton(navController: NavController) {
         onClick = { navController.navigate("gameScreen") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(32.dp),
+            .padding(16.dp),
     ) {
         Text(
             text = "GAME START",
+            style = MaterialTheme.typography.h5
         )
     }
 }
@@ -65,10 +66,11 @@ fun DictionaryButton(navController: NavController){
         onClick = { navController.navigate("dictionaryScreen") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(32.dp),
+            .padding(16.dp),
     ) {
         Text(
             text = "駅リスト",
+            style = MaterialTheme.typography.h5
         )
     }
 }

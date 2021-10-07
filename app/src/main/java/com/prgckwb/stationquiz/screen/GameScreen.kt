@@ -44,21 +44,22 @@ fun PrintScore(score: Int, questionNum: Int) {
 //　路線名と方向（上り方面か下り方面か）を表示
 @Composable
 fun ShowLineAndDirection(gameModel: GameModel){
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Column() {
         Text(
             text = gameModel.line.lineName,
             style = MaterialTheme.typography.h5,
             color = Color.Red,
             modifier = Modifier.padding(16.dp),
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.padding(8.dp))
         Text(
             text = gameModel.line.getLineDirectText(1),
             modifier = Modifier.padding(8.dp),
+            style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.subtitle1
-        )
+
+            )
     }
 }
 
