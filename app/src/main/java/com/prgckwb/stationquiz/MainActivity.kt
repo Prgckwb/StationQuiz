@@ -13,6 +13,7 @@ import com.prgckwb.stationquiz.screen.DisplayDictionaryScreen
 import com.prgckwb.stationquiz.screen.DisplayGameScreen
 import com.prgckwb.stationquiz.screen.DisplayStationsScreen
 import com.prgckwb.stationquiz.screen.DisplayTitleScreen
+import com.prgckwb.stationquiz.string.ScreenManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +28,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavigateManager() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "titleScreen") {
-        composable("titleScreen") { DisplayTitleScreen(navController = navController) }
-        composable("gameScreen") { DisplayGameScreen(navController = navController) }
-        composable("dictionaryScreen") { DisplayDictionaryScreen(navController = navController)}
+    NavHost(navController = navController, startDestination = ScreenManager.TITLE_SCREEN) {
+        composable(ScreenManager.TITLE_SCREEN) { DisplayTitleScreen(navController = navController) }
+        composable(ScreenManager.GAME_SCREEN) { DisplayGameScreen(navController = navController) }
+        composable(ScreenManager.DICTIONARY_SCREEN) { DisplayDictionaryScreen(navController = navController)}
         composable(
-            "dictionaryStationsScreen/{lineName}",
+            "${ScreenManager.DICTIONARY_STATIONS_SCREEN}/{lineName}",
             arguments = listOf(navArgument("lineName"){type = NavType.StringType})
         ){
             DisplayStationsScreen(navController = navController, it.arguments?.getString("lineName"))

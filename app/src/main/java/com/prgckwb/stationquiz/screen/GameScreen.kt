@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.prgckwb.stationquiz.game.GameModel
+import com.prgckwb.stationquiz.string.ScreenManager
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
 // ゲーム画面の組み立てコンポーザブル
@@ -160,7 +161,7 @@ fun PlayGame(gameModel: GameModel) {
 @Composable
 fun BackButton(navController: NavController) {
     Button(
-        onClick = { navController.navigate("titleScreen") },
+        onClick = { navController.navigate(ScreenManager.TITLE_SCREEN) },
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = "もどる")

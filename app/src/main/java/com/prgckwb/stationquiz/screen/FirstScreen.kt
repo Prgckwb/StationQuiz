@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.prgckwb.stationquiz.R
+import com.prgckwb.stationquiz.string.ScreenManager
 
 // タイトル画面の組み立てコンポーザブル
 @Composable
@@ -48,7 +49,7 @@ fun TitleText() {
 @Composable
 fun StartButton(navController: NavController) {
     Button(
-        onClick = { navController.navigate("gameScreen") },
+        onClick = { navController.navigate(ScreenManager.GAME_SCREEN) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
@@ -63,7 +64,7 @@ fun StartButton(navController: NavController) {
 @Composable
 fun DictionaryButton(navController: NavController){
     Button(
-        onClick = { navController.navigate("dictionaryScreen") },
+        onClick = { navController.navigate(ScreenManager.DICTIONARY_SCREEN) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),

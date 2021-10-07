@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.prgckwb.stationquiz.game.Line
 import com.prgckwb.stationquiz.game.allLinesList
+import com.prgckwb.stationquiz.string.ScreenManager
 
 @Composable
 fun DisplayDictionaryScreen(navController: NavController) {
@@ -36,7 +37,7 @@ fun LinesList(navController: NavController) {
     LazyColumn {
         items(allLinesList) { line ->
             Button(
-                onClick = { navController.navigate("dictionaryStationsScreen/" + line.lineName) },
+                onClick = { navController.navigate("${ScreenManager.DICTIONARY_STATIONS_SCREEN}/" + line.lineName) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
