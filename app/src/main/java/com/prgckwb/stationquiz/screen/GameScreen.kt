@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,16 +41,28 @@ fun PrintScore(score: Int, questionNum: Int) {
     }
 }
 
+//　路線名と方向（上り方面か下り方面か）を表示
 @Composable
-fun ShowDirection(gameModel: GameModel) {
-    Text(
-        text = gameModel.line.getLineDirectText(1),
-        modifier = Modifier.padding(8.dp),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.subtitle1
-    )
+fun ShowLineAndDirection(gameModel: GameModel){
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = gameModel.line.lineName,
+            style = MaterialTheme.typography.h5,
+            color = Color.Red,
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+        Text(
+            text = gameModel.line.getLineDirectText(1),
+            modifier = Modifier.padding(8.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.subtitle1
+        )
+    }
 }
 
+//　ChangeボタンとAnswerボタン
 @Composable
 fun OperationButtons(
     clickEvent1: () -> Unit,
@@ -66,6 +79,7 @@ fun OperationButtons(
     }
 }
 
+// 答えの入力欄
 @Composable
 fun WriteAnswerField(text: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
@@ -80,7 +94,8 @@ fun WriteAnswerField(text: String, onValueChange: (String) -> Unit) {
 }
 
 
-//　駅をランダムで表示して、ボタンを押すとその処理を繰り返す
+//　ゲームの流れを作る
+//  Stateを管理して、それらを使うコンポーザブルを配置する
 @Composable
 fun PlayGame(gameModel: GameModel) {
     var station by remember { mutableStateOf(gameModel.stationNow) }
@@ -98,9 +113,8 @@ fun PlayGame(gameModel: GameModel) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum)
         Spacer(modifier = Modifier.padding(16.dp))
-
-//        上り OR 下り表示
-        ShowDirection(gameModel = gameModel)
+        
+        ShowLineAndDirection(gameModel = gameModel)
         Spacer(modifier = Modifier.padding(16.dp))
 
 //        駅名表示
