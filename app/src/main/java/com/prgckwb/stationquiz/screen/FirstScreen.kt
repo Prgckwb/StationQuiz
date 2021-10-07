@@ -29,6 +29,7 @@ fun DisplayTitleScreen(navController: NavController) {
             alignment = Alignment.Center
         )
         StartButton(navController = navController)
+        DictionaryButton(navController = navController)
     }
 }
 
@@ -54,8 +55,20 @@ fun StartButton(navController: NavController) {
     ) {
         Text(
             text = "GAME START",
-            textAlign = TextAlign.Justify,
-            modifier = Modifier.fillMaxHeight(0.3f),
+        )
+    }
+}
+
+@Composable
+fun DictionaryButton(navController: NavController){
+    Button(
+        onClick = { navController.navigate("dictionaryScreen") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+    ) {
+        Text(
+            text = "駅リスト",
         )
     }
 }

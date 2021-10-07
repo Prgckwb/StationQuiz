@@ -4,10 +4,6 @@ data class Line(val stations: List<Station>, val lineName: String) {
     val firstStation = stations[0]
     val lastStation = stations[stations.size - 1]
 
-    fun random(): Station {
-        return stations.random()
-    }
-
     fun getLineDirectText(direction: Int): String {
         return if (direction > 0) {
             "[下り] ${firstStation.name} -> ${lastStation.name}"

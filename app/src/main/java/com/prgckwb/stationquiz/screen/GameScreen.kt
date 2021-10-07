@@ -142,10 +142,11 @@ fun PlayGame(gameModel: GameModel) {
 
         Spacer(modifier = Modifier.padding(8.dp))
 
+//        問題文表示
         Text(
             text = "What is the next station?",
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.h6
         )
 
         WriteAnswerField(text = text) { answer -> text = answer }
