@@ -1,5 +1,6 @@
 package com.prgckwb.stationquiz.screen
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,6 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.prgckwb.stationquiz.R
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
@@ -119,7 +121,7 @@ fun PlayGame(gameModel: GameModel) {
             },
             clickEvent2 = {
                 station = gameModel.stationNow
-                gameModel.checkAnswer(text)
+                gameModel.checkAnswer(text, 1)
                 score = gameModel.score
                 questionNum = gameModel.questionNum
                 text = ""
@@ -135,7 +137,7 @@ fun PlayGame(gameModel: GameModel) {
         )
 
         WriteAnswerField(text = text) { answer -> text = answer }
-        DebugText(gameModel = gameModel, text = text)
+        DebugText(gameModel = gameModel, text = text, 1)
     }
 }
 
@@ -152,10 +154,10 @@ fun BackButton(navController: NavController) {
 }
 
 @Composable
-fun DebugText(gameModel: GameModel, text: String) {
+fun DebugText(gameModel: GameModel, text: String, step:Int) {
     Column {
         Text(text = "入力中: ${text}")
-        Text(text = "正解:  ${gameModel.stationNow.name}")
+        Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex+step)%gameModel.stationsNum].name}")
     }
 }
 
