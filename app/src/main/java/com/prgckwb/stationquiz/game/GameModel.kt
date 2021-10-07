@@ -6,9 +6,9 @@ class GameModel {
     var score: Int = 0
     var questionNum: Int = 1
     val line = allLinesList.random()
-    val stationsNum = line.stations.size
-    var stationIndex = Random.nextInt(stationsNum)
-    var stationNow: Station = line.stations[stationIndex]
+    val totalStationsNum = line.stations.size
+    var stationIndex = Random.nextInt(totalStationsNum)
+    var currentStation: Station = line.stations[stationIndex]
 
 
     //    スコアを引数で与えた数だけ変更
@@ -16,15 +16,16 @@ class GameModel {
         this.score += point
     }
 
+
     //    新しい駅をランダムで取得する
     fun getNextStation(): Station {
-        this.stationIndex = Random.nextInt(this.stationsNum)
+        this.stationIndex = Random.nextInt(this.totalStationsNum)
 
-        while (line.stations[stationIndex] == stationNow) {
-            stationIndex = Random.nextInt(this.stationsNum)
+        while (line.stations[stationIndex] == currentStation) {
+            stationIndex = Random.nextInt(this.totalStationsNum)
         }
-        stationNow = line.stations[this.stationIndex]
-        return stationNow
+        currentStation = line.stations[this.stationIndex]
+        return currentStation
     }
 
     //    いま何問目かをインクリメントして返す
@@ -34,7 +35,7 @@ class GameModel {
 
     //    入力した答えが正答と一致しているかを判断する
     fun checkAnswer(answer: String, step: Int) {
-        val answerString = line.stations[(stationIndex + step) % this.stationsNum].name
+        val answerString = line.stations[(stationIndex + step) % this.totalStationsNum].name
         val answerList: MutableList<String> = mutableListOf()
         var uselessChar: Char? = null
 
@@ -53,7 +54,7 @@ class GameModel {
 
         if (answerList.contains(answer)) {
             changeScore(20)
-            stationNow = getNextStation()
+            currentStation = getNextStation()
             questionNum++
         } else {
             changeScore(-10)

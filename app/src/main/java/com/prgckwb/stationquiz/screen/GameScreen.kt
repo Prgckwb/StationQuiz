@@ -49,7 +49,7 @@ fun ShowLineAndDirection(gameModel: GameModel) {
         Text(
             text = gameModel.line.lineName,
             style = MaterialTheme.typography.h5,
-            color = Color.Red,
+            color = gameModel.line.lineColor,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
@@ -104,7 +104,7 @@ fun WriteAnswerField(text: String, onValueChange: (String) -> Unit) {
 //  Stateを管理して、それらを使うコンポーザブルを配置する
 @Composable
 fun PlayGame(gameModel: GameModel) {
-    var station by remember { mutableStateOf(gameModel.stationNow) }
+    var station by remember { mutableStateOf(gameModel.currentStation) }
     var questionNum by remember { mutableStateOf(gameModel.questionNum) }
     var score by remember { mutableStateOf(gameModel.score) }
     var text by remember { mutableStateOf("") }
@@ -125,7 +125,7 @@ fun PlayGame(gameModel: GameModel) {
 
 //        駅名表示
         Text(
-            text = gameModel.stationNow.name,
+            text = gameModel.currentStation.name,
             style = MaterialTheme.typography.h2,
         )
 
@@ -139,7 +139,7 @@ fun PlayGame(gameModel: GameModel) {
 
             },
             clickEvent2 = {
-                station = gameModel.stationNow
+                station = gameModel.currentStation
                 gameModel.checkAnswer(text, 1)
                 score = gameModel.score
                 questionNum = gameModel.questionNum
@@ -177,7 +177,7 @@ fun BackButton(navController: NavController) {
 fun DebugText(gameModel: GameModel, text: String, step: Int) {
     Column {
         Text(text = "入力中: $text")
-        Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex + step) % gameModel.stationsNum].name}")
+        Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex + step) % gameModel.totalStationsNum].name}")
     }
 }
 
