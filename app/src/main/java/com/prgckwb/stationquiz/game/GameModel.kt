@@ -34,13 +34,29 @@ class GameModel() {
 
 //    入力した答えが正答と一致しているかを判断する
     fun checkAnswer(answer: String, step: Int){
-        if (answer == line.stations[(stationIndex + step) % this.stationsNum].name){
-            changeScore(20)
-            stationNow = getNextStation()
-            questionNum++
+        val answerString = line.stations[(stationIndex + step) % this.stationsNum].name
+        val answerList: MutableList<String> = mutableListOf()
+        var isCorrect = false
+
+        answerList.add(answerString)
+        answerList.add(answerString + "駅")
+
+        if(answerString.contains('〈')){
+            val shortAnswerString = answerString.substringBefore("〈")
+            answerList.add(shortAnswerString)
+            answerList.add(shortAnswerString + "駅")
+        }
+
+        for(candidate in answerList){
+            if(candidate == answer) isCorrect = true
+        }
+
+        if (isCorrect){
+                changeScore(20)
+                stationNow = getNextStation()
+                questionNum++
         }else{
-            changeScore(-10)
+                changeScore(-10)
         }
     }
-
 }
