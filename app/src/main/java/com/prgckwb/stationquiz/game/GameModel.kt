@@ -36,7 +36,6 @@ class GameModel {
     fun checkAnswer(answer: String, step: Int) {
         val answerString = line.stations[(stationIndex + step) % this.stationsNum].name
         val answerList: MutableList<String> = mutableListOf()
-        var isCorrect = false
         var uselessChar: Char? = null
 
         answerList.add(answerString)
@@ -52,11 +51,7 @@ class GameModel {
             answerList.add(shortAnswerString + "駅")
         }
 
-        for (candidate in answerList) {
-            if (candidate == answer) isCorrect = true
-        }
-
-        if (isCorrect) {
+        if (answerList.contains(answer)) {
             changeScore(20)
             stationNow = getNextStation()
             questionNum++
