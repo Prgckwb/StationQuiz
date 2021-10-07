@@ -135,7 +135,8 @@ fun PlayGame(gameModel: GameModel) {
         OperationButtons(
             clickEvent1 = {
                 station = gameModel.getNextStation()
-                questionNum = gameModel.getNextQuestionNum()
+                questionNum = gameModel.getNextIncrementQuestionNum()
+
             },
             clickEvent2 = {
                 station = gameModel.stationNow

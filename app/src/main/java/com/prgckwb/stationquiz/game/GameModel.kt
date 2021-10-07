@@ -28,7 +28,7 @@ class GameModel {
     }
 
     //    いま何問目かをインクリメントして返す
-    fun getNextQuestionNum(): Int {
+    fun getNextIncrementQuestionNum(): Int {
         return ++questionNum
     }
 
