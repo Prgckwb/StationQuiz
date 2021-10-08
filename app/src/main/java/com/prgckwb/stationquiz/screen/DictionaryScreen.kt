@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.game.Line
 import com.prgckwb.stationquiz.game.allLinesList
 import com.prgckwb.stationquiz.string.ScreenManager
@@ -26,7 +27,7 @@ fun DisplayDictionaryScreen(navController: NavController) {
 @Composable
 fun DisplayStationsScreen(navController: NavController, lineName: String?) {
     val line = findLine(allLinesList, lineName)
-    StationsList(line = line)
+    StationsList(line = line, navController)
 }
 
 fun findLine(linesList: List<Line>, lineName: String?): Line {
@@ -54,8 +55,13 @@ fun LinesList(navController: NavController) {
 }
 
 @Composable
-fun StationsList(line: Line) {
+fun StationsList(line: Line, navController: NavController) {
     LazyColumn {
+        item {
+            Button(onClick = { navController.navigate(ScreenManager.SELECT_GAME_SCREEN) }) {
+
+            }
+        }
         items(line.stations) { station ->
             Button(
                 onClick = { /*TODO*/ },

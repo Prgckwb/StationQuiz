@@ -3,10 +3,10 @@ package com.prgckwb.stationquiz.game
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameModel {
+class GameModel() {
     var score: Int = 0
     var questionNum: Int = 1
-    val line = allLinesList.random()
+    val line: Line = allLinesList.random()
     val totalStationsNum = line.stations.size
     var stationIndex = Random.nextInt(totalStationsNum)
     var currentStation: Station = line.stations[stationIndex]

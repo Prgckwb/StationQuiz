@@ -19,8 +19,15 @@ fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        Text(text = "${questionNum}問目", Modifier.fillMaxWidth(0.5f), style = MaterialTheme.typography.h6)
-        Text(text = "Score : $score", Modifier.fillMaxWidth(0.5f), color = color, style = MaterialTheme.typography.h6)
+        Text(
+            text = "${questionNum}問目",
+            Modifier.fillMaxWidth(0.5f),
+            style = MaterialTheme.typography.h5)
+        Text(
+            text = "Score : $score",
+            Modifier.fillMaxWidth(0.5f),
+            color = color,
+            style = MaterialTheme.typography.h5)
     }
 }
 
@@ -30,7 +37,7 @@ fun ShowLineAndDirection(gameModel: GameModel) {
     Column {
         Text(
             text = gameModel.line.lineName,
-            style = MaterialTheme.typography.h5,
+            style = MaterialTheme.typography.h4,
             color = gameModel.line.lineColor,
             modifier = Modifier
                 .fillMaxWidth()
