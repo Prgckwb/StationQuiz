@@ -10,6 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -44,7 +45,7 @@ fun LinesList(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor)
+                colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor, contentColor = Color.White)
             ) {
                 Text(text = line.lineName, style = MaterialTheme.typography.h5)
             }
@@ -61,7 +62,7 @@ fun StationsList(line: Line) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor)
+                colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor, contentColor = Color.White)
             ) {
                 Text(text = station.name, style = MaterialTheme.typography.h6)
             }

@@ -310,7 +310,7 @@ val allLinesList = listOf(
     ),
 
     Line(
-        lineName = "東京メトロ半蔵門線線",
+        lineName = "東京メトロ半蔵門線",
         lineColor = Color(0xFF8F76D6),
         stations = listOf(
             Station("渋谷"),

@@ -9,10 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.prgckwb.stationquiz.screen.DisplayDictionaryScreen
-import com.prgckwb.stationquiz.screen.DisplayGameScreen
-import com.prgckwb.stationquiz.screen.DisplayStationsScreen
-import com.prgckwb.stationquiz.screen.DisplayTitleScreen
+import com.prgckwb.stationquiz.screen.*
 import com.prgckwb.stationquiz.string.ScreenManager
 
 class MainActivity : ComponentActivity() {
@@ -30,7 +27,8 @@ fun NavigateManager() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = ScreenManager.TITLE_SCREEN) {
         composable(ScreenManager.TITLE_SCREEN) { DisplayTitleScreen(navController = navController) }
-        composable(ScreenManager.GAME_SCREEN) { DisplayGameScreen(navController = navController) }
+        composable(ScreenManager.WRITE_GAME_SCREEN) { DisplayWriteGameScreen(navController = navController) }
+        composable(ScreenManager.SELECT_GAME_SCREEN) { DisplaySelectGameScreen(navController = navController)}
         composable(ScreenManager.DICTIONARY_SCREEN) { DisplayDictionaryScreen(navController = navController) }
         composable(
             "${ScreenManager.DICTIONARY_STATIONS_SCREEN}/{lineName}",

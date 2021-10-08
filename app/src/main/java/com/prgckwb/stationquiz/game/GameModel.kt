@@ -1,5 +1,6 @@
 package com.prgckwb.stationquiz.game
 
+import kotlin.math.min
 import kotlin.random.Random
 
 class GameModel {
@@ -61,5 +62,20 @@ class GameModel {
             changeScore(-10)
             false
         }
+    }
+
+    fun getStationOptions(optionsNum: Int = 4, step: Int): MutableList<Station> {
+        val num = min(optionsNum, line.stations.size)
+        val options = mutableListOf<Station>()
+        val shuffledLine = line.stations.shuffled() as MutableList<Station>
+        shuffledLine.remove(currentStation)
+
+        repeat(num - 1) {
+            options.add(shuffledLine[it])
+        }
+
+        options.add(line.stations[(stationIndex + step) % totalStationsNum])
+        options.shuffle()
+        return options
     }
 }

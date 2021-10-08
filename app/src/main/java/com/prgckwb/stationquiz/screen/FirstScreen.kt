@@ -1,10 +1,7 @@
 package com.prgckwb.stationquiz.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -47,16 +44,27 @@ fun TitleText() {
 
 @Composable
 fun StartButton(navController: NavController) {
-    Button(
-        onClick = { navController.navigate(ScreenManager.GAME_SCREEN) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-    ) {
-        Text(
-            text = "GAME START",
-            style = MaterialTheme.typography.h5
-        )
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { navController.navigate(ScreenManager.WRITE_GAME_SCREEN) },
+            modifier = Modifier
+                .padding(16.dp),
+        ) {
+            Text(
+                text = "WRITE GAME",
+                style = MaterialTheme.typography.h5
+            )
+        }
+        Button(
+            onClick = { navController.navigate(ScreenManager.SELECT_GAME_SCREEN) },
+            modifier = Modifier
+                .padding(16.dp),
+        ) {
+            Text(
+                text = "SELECT GAME",
+                style = MaterialTheme.typography.h5
+            )
+        }
     }
 }
 
