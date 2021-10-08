@@ -34,7 +34,7 @@ class GameModel {
     }
 
     //    入力した答えが正答と一致しているかを判断する
-    fun checkAnswer(answer: String, step: Int) {
+    fun checkAnswer(answer: String, step: Int): Boolean {
         val answerString = line.stations[(stationIndex + step) % this.totalStationsNum].name
         val answerList: MutableList<String> = mutableListOf()
         var uselessChar: Char? = null
@@ -52,12 +52,14 @@ class GameModel {
             answerList.add(shortAnswerString + "駅")
         }
 
-        if (answerList.contains(answer)) {
+        return if (answerList.contains(answer)) {
             changeScore(20)
             currentStation = getNextStation()
             questionNum++
+            true
         } else {
             changeScore(-10)
+            false
         }
     }
 }

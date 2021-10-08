@@ -31,14 +31,15 @@ fun DisplayGameScreen(navController: NavController) {
 
 //　何問目かとスコアを表示する
 @Composable
-fun PrintScore(score: Int, questionNum: Int) {
+fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
+    val color = if(wasCorrect) Color.Red else Color.Blue
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
         Text(text = "${questionNum}問目", Modifier.fillMaxWidth(0.5f))
-        Text(text = "Score : $score", Modifier.fillMaxWidth(0.5f))
+        Text(text = "Score : $score", Modifier.fillMaxWidth(0.5f), color = color)
     }
 }
 
@@ -108,6 +109,7 @@ fun PlayGame(gameModel: GameModel) {
     var questionNum by remember { mutableStateOf(gameModel.questionNum) }
     var score by remember { mutableStateOf(gameModel.score) }
     var text by remember { mutableStateOf("") }
+    var wasCorrect by remember { mutableStateOf(false)}
 
 
     Column(
@@ -117,7 +119,7 @@ fun PlayGame(gameModel: GameModel) {
             .fillMaxWidth(),
     ) {
 //       問題Noとスコアの表示
-        PrintScore(score, questionNum)
+        PrintScore(score, questionNum, wasCorrect)
         Spacer(modifier = Modifier.padding(16.dp))
 
         ShowLineAndDirection(gameModel = gameModel)
@@ -139,8 +141,7 @@ fun PlayGame(gameModel: GameModel) {
 
             },
             clickEvent2 = {
-                station = gameModel.currentStation
-                gameModel.checkAnswer(text, 1)
+                wasCorrect = gameModel.checkAnswer(text, 1)
                 score = gameModel.score
                 questionNum = gameModel.questionNum
                 text = ""
