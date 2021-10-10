@@ -81,8 +81,11 @@ fun PlayWriteGame(gameModel: GameModel, step: Int) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum, wasCorrect)
         Spacer(modifier = Modifier.padding(16.dp))
+
+//        路線と方向の表示
         ShowLineAndDirection(gameModel = gameModel)
         Spacer(modifier = Modifier.padding(16.dp))
+
 //        駅名表示
         StationName(gameModel)
         Spacer(Modifier.padding(16.dp))
@@ -104,7 +107,10 @@ fun PlayWriteGame(gameModel: GameModel, step: Int) {
         Spacer(modifier = Modifier.padding(8.dp))
 //        問題文表示
         QuestionText(step = step)
+
+//        回答入力欄
         WriteAnswerField(text = text) { answer -> text = answer }
+
         DebugText(gameModel = gameModel, text = text, step)
     }
 }

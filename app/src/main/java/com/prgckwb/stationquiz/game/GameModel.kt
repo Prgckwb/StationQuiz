@@ -3,7 +3,7 @@ package com.prgckwb.stationquiz.game
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameModel() {
+class GameModel {
     var score: Int = 0
     var questionNum: Int = 1
     val line: Line = allLinesList.random()
@@ -64,18 +64,19 @@ class GameModel() {
         }
     }
 
+    //    optionsNum 個の選択肢を返す関数
+//    返すリストにはstep先の答え駅も含む
     fun getStationOptions(optionsNum: Int = 4, step: Int): MutableList<Station> {
-        val num = min(optionsNum, line.stations.size)
-        val options = mutableListOf<Station>()
+        val num = min(optionsNum, totalStationsNum)
         val shuffledLine = line.stations.shuffled() as MutableList<Station>
+        val answerStation = line.stations[(stationIndex + step) % totalStationsNum]
+
         shuffledLine.remove(currentStation)
 
-        repeat(num - 1) {
-            options.add(shuffledLine[it])
-        }
+        val reShuffledLine = shuffledLine.take(num - 1) as MutableList<Station>
+        reShuffledLine.add(answerStation)
+        reShuffledLine.shuffle()
 
-        options.add(line.stations[(stationIndex + step) % totalStationsNum])
-        options.shuffle()
-        return options
+        return reShuffledLine
     }
 }
