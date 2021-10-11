@@ -17,13 +17,22 @@ class GameModel {
         this.score += point
     }
 
+    fun findLine(lineName: String): Line{
+        repeat(allLinesList.size){ index ->
+            if(allLinesList[index].lineName == lineName){
+                return allLinesList[index]
+            }
+        }
+        return allLinesList[0]
+    }
+
 
     //    新しい駅をランダムで取得する
     fun getNextStation(): Station {
-        this.stationIndex = Random.nextInt(this.totalStationsNum)
+        this.stationIndex = Random.nextInt(this.totalStationsNum - 1)
 
         while (line.stations[stationIndex] == currentStation) {
-            stationIndex = Random.nextInt(this.totalStationsNum)
+            stationIndex = Random.nextInt(this.totalStationsNum - 1)
         }
         currentStation = line.stations[this.stationIndex]
         return currentStation

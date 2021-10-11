@@ -1,9 +1,7 @@
 package com.prgckwb.stationquiz.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -17,9 +15,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.composable.*
 import com.prgckwb.stationquiz.game.GameModel
+import com.prgckwb.stationquiz.string.ScreenManager
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
 // 画面にSelectGameScreenを表示するコンポーザブル
+@ExperimentalAnimationApi
 @Composable
 fun DisplaySelectGameScreen(navController: NavController) {
     val gameModel = GameModel()
@@ -30,7 +30,7 @@ fun DisplaySelectGameScreen(navController: NavController) {
 
             Column {
                 PlaySelectGame(gameModel = gameModel, step = stationStep)
-                BackButton(navController)
+                BottomButtons(navController = navController)
             }
         }
     }
@@ -75,6 +75,7 @@ fun SelectAnswerButtons(
 }
 
 // 状態を管理する、SelectGameのコンポーザブル組み立てよう関数
+@ExperimentalAnimationApi
 @Composable
 fun PlaySelectGame(gameModel: GameModel, step: Int) {
     var station by remember { mutableStateOf(gameModel.currentStation) }
@@ -105,11 +106,12 @@ fun PlaySelectGame(gameModel: GameModel, step: Int) {
             score = gameModel.score
             questionNum = gameModel.questionNum
         }
-        DebugText(gameModel = gameModel, text = text, step)
+        DebugText(gameModel = gameModel, step)
     }
 }
 
 
+@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewSelectGame() {

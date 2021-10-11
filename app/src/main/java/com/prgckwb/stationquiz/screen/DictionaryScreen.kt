@@ -17,8 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.prgckwb.stationquiz.composable.BackButton
-import com.prgckwb.stationquiz.game.GameModel
+import com.prgckwb.stationquiz.composable.NavigationButton
 import com.prgckwb.stationquiz.game.Line
 import com.prgckwb.stationquiz.game.allLinesList
 import com.prgckwb.stationquiz.string.ScreenManager
@@ -57,7 +56,7 @@ fun LinesList(navController: NavController) {
             }
         }
         
-        item { BackButton(navController = navController) }
+        item { NavigationButton(navController = navController) }
     }
 }
 
@@ -77,7 +76,7 @@ fun StationsList(line: Line, navController: NavController) {
             }
         }
         
-        item { BackButton(navController = navController) }
+        item { NavigationButton(navController = navController) }
     }
 }
 

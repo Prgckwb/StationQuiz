@@ -4,6 +4,15 @@ import androidx.compose.ui.graphics.Color
 
 // lineColorは Color(0xFF(カラーコード))
 
+// exmaple
+//  Line(
+//      lineName = "つまみびしょ濡れライン",
+//      lineColor = Color(0xFF90e200),
+//         stations = listOf(
+//
+//          )
+//  ),
+
 val allLinesList = listOf(
     Line(
         lineName = "京王線",
@@ -511,5 +520,5 @@ val allLinesList = listOf(
             Station("練馬春日町"),
             Station("光が丘"),
         )
-    )
+    ),
 )

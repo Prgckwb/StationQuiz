@@ -15,9 +15,9 @@ data class Line(
 
     fun getLineDirectText(direction: Int): String {
         return if (direction > 0) {
-            "${firstStation.name} -> ${lastStation.name}"
+            "${firstStation.name} → ${lastStation.name}"
         } else {
-            "${lastStation.name} -> ${firstStation.name}"
+            "${lastStation.name} → ${firstStation.name}"
         }
     }
 }
