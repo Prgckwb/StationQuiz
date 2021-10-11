@@ -1,14 +1,26 @@
 package com.prgckwb.stationquiz.composable
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.game.GameModel
+import com.prgckwb.stationquiz.screen.DisplaySelectGameScreen
+import com.prgckwb.stationquiz.string.ScreenManager
+
 
 //　何問目かとスコアを表示する
 @Composable
@@ -22,12 +34,14 @@ fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
         Text(
             text = "${questionNum}問目",
             Modifier.fillMaxWidth(0.5f),
-            style = MaterialTheme.typography.h5)
+            style = MaterialTheme.typography.h5
+        )
         Text(
             text = "Score : $score",
-            Modifier.fillMaxWidth(0.5f),
+            Modifier.fillMaxWidth(),
             color = color,
-            style = MaterialTheme.typography.h5)
+            style = MaterialTheme.typography.h5
+        )
     }
 }
 
@@ -51,8 +65,7 @@ fun ShowLineAndDirection(gameModel: GameModel) {
                 .padding(8.dp),
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-
-            )
+        )
     }
 }
 
@@ -77,9 +90,31 @@ fun QuestionText(step: Int) {
 }
 
 @Composable
+fun BackButton(navController: NavController) {
+    Button(
+        onClick = { navController.navigate(ScreenManager.TITLE_SCREEN) },
+        modifier = Modifier
+            .padding(8.dp)
+            .clip(CircleShape)
+    ) {
+        Text(text = "もどる")
+    }
+}
+
+@Composable
 fun DebugText(gameModel: GameModel, text: String, step: Int) {
     Column {
 //        Text(text = "入力中: $text")
         Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex + step) % gameModel.totalStationsNum].name}")
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun ComposablePreview() {
+    val navController = rememberNavController()
+    Column {
+        DisplaySelectGameScreen(navController = navController)
     }
 }

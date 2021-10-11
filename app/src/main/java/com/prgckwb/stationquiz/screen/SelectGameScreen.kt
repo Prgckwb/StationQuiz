@@ -1,27 +1,31 @@
 package com.prgckwb.stationquiz.screen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.composable.*
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
 @Composable
-fun DisplaySelectGameScreen(navController: NavController){
+fun DisplaySelectGameScreen(navController: NavController) {
     val gameModel = GameModel()
 
     StationQuizTheme {
         Surface(color = MaterialTheme.colors.background) {
             val stationStep = 1
-            val optionsNum = 4
-            val optionsList = gameModel.getStationOptions(optionsNum, stationStep)
 
             Column {
                 PlaySelectGame(gameModel = gameModel, step = stationStep)
@@ -34,14 +38,20 @@ fun DisplaySelectGameScreen(navController: NavController){
 
 // 選択肢ボタン
 @Composable
-fun SelectAnswerButtons(gameModel: GameModel, optionsNum: Int, step: Int, onClick: (String) -> Unit){
+fun SelectAnswerButtons(
+    gameModel: GameModel,
+    optionsNum: Int,
+    step: Int,
+    onClick: (String) -> Unit
+) {
     val optionsList = gameModel.getStationOptions(optionsNum, step)
 
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(8.dp)) {
-        repeat(optionsList.size){
+            .padding(8.dp)
+    ) {
+        repeat(optionsList.size) {
             val optionStationName = optionsList[it].name
             Button(
                 onClick = {
@@ -49,17 +59,22 @@ fun SelectAnswerButtons(gameModel: GameModel, optionsNum: Int, step: Int, onClic
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(backgroundColor = gameModel.line.lineColor)
             ) {
-                Text(text = optionsList[it].name, color = Color.White, style = MaterialTheme.typography.h5)
+                Text(
+                    text = optionsList[it].name,
+                    color = Color.White,
+                    style = MaterialTheme.typography.h5
+                )
             }
         }
     }
 }
 
 @Composable
-fun PlaySelectGame(gameModel: GameModel, step: Int){
+fun PlaySelectGame(gameModel: GameModel, step: Int) {
     var station by remember { mutableStateOf(gameModel.currentStation) }
     var questionNum by remember { mutableStateOf(gameModel.questionNum) }
     var score by remember { mutableStateOf(gameModel.score) }
@@ -90,4 +105,12 @@ fun PlaySelectGame(gameModel: GameModel, step: Int){
         }
         DebugText(gameModel = gameModel, text = text, step)
     }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSelectGame() {
+    val navController = rememberNavController()
+    DisplaySelectGameScreen(navController = navController)
 }
