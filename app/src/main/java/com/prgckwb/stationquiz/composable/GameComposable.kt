@@ -1,9 +1,13 @@
 package com.prgckwb.stationquiz.composable
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,10 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -95,7 +97,7 @@ fun ShowLineAndDirection(gameModel: GameModel) {
 @ExperimentalAnimationApi
 @Composable
 fun StationName(gameModel: GameModel) {
-    AnimatedContent(targetState = gameModel.currentStation.name){
+    AnimatedContent(targetState = gameModel.currentStation.name) {
         Text(
             text = gameModel.currentStation.name,
             style = MaterialTheme.typography.h2,
@@ -119,13 +121,14 @@ fun QuestionText(step: Int) {
 fun NavigationButton(
     navController: NavController,
     destination: String = ScreenManager.TITLE_SCREEN,
-    text: String = "戻る"
+    text: String = "戻る",
 ) {
+
     Button(
         onClick = { navController.navigate(destination) },
         modifier = Modifier
             .padding(8.dp)
-            .clip(CircleShape)
+            .clip(CircleShape),
     ) {
         Text(
             text = text,
@@ -135,16 +138,31 @@ fun NavigationButton(
 }
 
 @Composable
-fun BottomButtons(navController: NavController){
+fun BottomButtons(navController: NavController, gameModel: GameModel) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-    ){
-        NavigationButton(navController, ScreenManager.TITLE_SCREEN, "もどる")
+    ) {
+        NavigationButton(navController, ScreenManager.TITLE_SCREEN, "タイトルへ")
         NavigationButton(navController, ScreenManager.SELECT_GAME_SCREEN, text = "路線を変える")
+        NavigationButton(navController, ScreenManager.DICTIONARY_STATIONS_SCREEN+"/${gameModel.line.lineName}", text = "学習する")
     }
 }
 
+@Composable
+fun BackButton(navController: NavController){
+    Button(
+        onClick = { navController.popBackStack() },
+        modifier = Modifier
+            .padding(8.dp)
+            .clip(CircleShape),
+    ) {
+        Text(
+            text = "もどる",
+            textAlign = TextAlign.Center
+        )
+    }
+}
 
 
 @Composable

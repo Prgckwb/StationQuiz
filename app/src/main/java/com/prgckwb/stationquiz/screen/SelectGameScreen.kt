@@ -1,7 +1,10 @@
 package com.prgckwb.stationquiz.screen
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,7 +18,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.composable.*
 import com.prgckwb.stationquiz.game.GameModel
-import com.prgckwb.stationquiz.string.ScreenManager
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
 // 画面にSelectGameScreenを表示するコンポーザブル
@@ -30,7 +32,7 @@ fun DisplaySelectGameScreen(navController: NavController) {
 
             Column {
                 PlaySelectGame(gameModel = gameModel, step = stationStep)
-                BottomButtons(navController = navController)
+                BottomButtons(navController = navController, gameModel)
             }
         }
     }
