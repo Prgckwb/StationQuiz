@@ -1,5 +1,6 @@
 package com.prgckwb.stationquiz.composable
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,9 +24,11 @@ import com.prgckwb.stationquiz.string.ScreenManager
 
 
 //　何問目かとスコアを表示する
+@ExperimentalAnimationApi
 @Composable
 fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
     val color = if (wasCorrect) Color.Red else Color.Blue
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,12 +39,32 @@ fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
             Modifier.fillMaxWidth(0.5f),
             style = MaterialTheme.typography.h5
         )
-        Text(
-            text = "Score : $score",
-            Modifier.fillMaxWidth(),
-            color = color,
-            style = MaterialTheme.typography.h5
-        )
+
+//        experiment
+        Row {
+            AnimatedContent(
+                targetState = score,
+                transitionSpec = {
+                    if (targetState > initialState) {
+                        slideInVertically({ height -> height }) + fadeIn() with
+                                slideOutVertically({ height -> height }) + fadeOut()
+                    } else {
+                        slideInVertically({ height -> -height }) + fadeIn() with
+                                slideOutVertically({ height -> height }) + fadeOut()
+                    }.using(SizeTransform(clip = false))
+                }
+            ) { targetScore ->
+                // Make sure to use `targetCount`, not `count`.
+                Text(
+                    text = "Score : $targetScore",
+                    Modifier.fillMaxWidth(),
+                    color = color,
+                    style = MaterialTheme.typography.h5
+                )
+            }
+        }
+
+
     }
 }
 
