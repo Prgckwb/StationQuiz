@@ -1,5 +1,6 @@
 package com.prgckwb.stationquiz.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -13,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,6 +24,8 @@ import com.prgckwb.stationquiz.string.ScreenManager
 // タイトル画面の組み立てコンポーザブル
 @Composable
 fun DisplayTitleScreen(navController: NavController) {
+    Log.d("DEBUG", "DisplayTitleScreen 呼び出し")
+
     var a by remember { mutableStateOf(0.1f) }
 
     Column {

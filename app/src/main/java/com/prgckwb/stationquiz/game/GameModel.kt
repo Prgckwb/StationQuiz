@@ -1,15 +1,39 @@
 package com.prgckwb.stationquiz.game
 
+import android.util.Log
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameModel {
+class GameModel(val line: Line = allLinesList.random()) {
+    init {
+        Log.d("DEBUG", "GameModel 初期化")
+    }
     var score: Int = 0
     var questionNum: Int = 1
-    val line: Line = allLinesList.random()
     val totalStationsNum = line.stations.size
     var stationIndex = Random.nextInt(totalStationsNum)
     var currentStation: Station = line.stations[stationIndex]
+
+    companion object{
+        fun findLine(lineName: String?): Line {
+            for (line in allLinesList) {
+                if (line.lineName == lineName) return line
+            }
+            return allLinesList[0]
+        }
+
+        fun findLines(lineName: String?): List<Line>{
+            val list = mutableListOf<Line>()
+            return if (lineName == null){
+                list
+            }else{
+                for( line in allLinesList){
+                    if(line.lineName.contains(lineName)) list.add(line)
+                }
+                list
+            }
+        }
+    }
 
 
     //    スコアを引数で与えた数だけ変更
@@ -17,14 +41,7 @@ class GameModel {
         this.score += point
     }
 
-    fun findLine(lineName: String): Line{
-        repeat(allLinesList.size){ index ->
-            if(allLinesList[index].lineName == lineName){
-                return allLinesList[index]
-            }
-        }
-        return allLinesList[0]
-    }
+
 
 
     //    新しい駅をランダムで取得する

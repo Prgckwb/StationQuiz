@@ -1,14 +1,19 @@
 package com.prgckwb.stationquiz
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.prgckwb.stationquiz.game.GameModel
+import com.prgckwb.stationquiz.game.GameModel.Companion.findLine
 import com.prgckwb.stationquiz.screen.DisplayDictionaryScreen
 import com.prgckwb.stationquiz.screen.DisplaySelectGameScreen
 import com.prgckwb.stationquiz.screen.DisplayStationsScreen
@@ -16,8 +21,12 @@ import com.prgckwb.stationquiz.screen.DisplayTitleScreen
 import com.prgckwb.stationquiz.string.ScreenManager
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalComposeUiApi
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("DEBUG", "MainActivity onCreate")
+
         setContent {
             NavigateManager()
         }
@@ -25,6 +34,8 @@ class MainActivity : ComponentActivity() {
 }
 
 // Navigationの情報を書いていく
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @Composable
 fun NavigateManager() {
     val navController = rememberNavController()
@@ -39,6 +50,17 @@ fun NavigateManager() {
             DisplayStationsScreen(
                 navController = navController,
                 it.arguments?.getString("lineName")
+            )
+        }
+//        路線名を指定してゲームスタート
+//        遷移の際に、{}を余分に渡すとエラーになる
+        composable(
+            "${ScreenManager.SELECT_GAME_SCREEN}/{lineName}",
+            arguments = listOf(navArgument("lineName") { type = NavType.StringType })
+        ) {
+            DisplaySelectGameScreen(
+                navController = navController,
+                GameModel(findLine(it.arguments?.getString("lineName")))
             )
         }
     }

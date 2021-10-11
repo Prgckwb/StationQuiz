@@ -1,5 +1,6 @@
 package com.prgckwb.stationquiz.screen
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,8 +24,11 @@ import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 // 画面にSelectGameScreenを表示するコンポーザブル
 @ExperimentalAnimationApi
 @Composable
-fun DisplaySelectGameScreen(navController: NavController) {
-    val gameModel = GameModel()
+fun DisplaySelectGameScreen(
+    navController: NavController,
+    gameModel: GameModel = GameModel()
+) {
+    Log.d("DEBUG", "DisplaySelectGameScreen 呼び出し")
 
     StationQuizTheme {
         Surface(color = MaterialTheme.colors.background) {
@@ -96,7 +100,7 @@ fun PlaySelectGame(gameModel: GameModel, step: Int) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum, wasCorrect)
         Spacer(modifier = Modifier.padding(16.dp))
-        ShowLineAndDirection(gameModel = gameModel)
+        ShowLineAndDirection(line = gameModel.line)
         Spacer(modifier = Modifier.padding(16.dp))
 //        駅名表示
         StationName(gameModel)

@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 //          )
 //  ),
 
+
 val allLinesList = listOf(
     Line(
         lineName = "京王線",
@@ -108,7 +109,7 @@ val allLinesList = listOf(
     ),
 
     Line(
-        lineName = "JR高崎線",
+        lineName = "JR 高崎線",
         lineColor = Color(0xFFf68b1e),
         stations = listOf(
             Station("上野"),
@@ -138,6 +139,181 @@ val allLinesList = listOf(
         )
     ),
 
+        Line(
+        lineName = "JR 南武線",
+        lineColor = Color(0xFFffd600),
+        stations = listOf(
+            Station("川崎"),
+            Station("尻手"),
+            Station("矢向"),
+            Station("鹿島田"),
+            Station("平間"),
+            Station("向河原"),
+            Station("武蔵小杉"),
+            Station("武蔵中原"),
+            Station("武蔵新城"),
+            Station("武蔵溝ノ口"),
+            Station("津田山"),
+            Station("久地"),
+            Station("宿河原"),
+            Station("登戸"),
+            Station("中野島"),
+            Station("稲田堤"),
+            Station("矢野口"),
+            Station("稲城長沼"),
+            Station("南多摩"),
+            Station("府中本町"),
+            Station("分倍河原"),
+            Station("西府"),
+            Station("谷保"),
+            Station("矢川"),
+            Station("西国立"),
+            Station("立川"),
+            Station("八丁畷"),
+            Station("川崎新町"),
+            Station("小田栄"),
+            Station("浜川崎"),
+        )
+    ),
+
+    Line(
+        lineName = "JR湘南新宿ライン",
+        lineColor = Color(0xFFe21f26),
+        stations = listOf(
+            Station("大宮"),
+            Station("浦和"),
+            Station("赤羽"),
+            Station("池袋"),
+            Station("新宿"),
+            Station("渋谷"),
+            Station("恵比寿"),
+            Station("大崎"),
+            Station("西大井"),
+            Station("武蔵小杉"),
+            Station("新川崎"),
+            Station("横浜"),
+            Station("保土ケ谷"),
+            Station("東戸塚"),
+            Station("戸塚"),
+            Station("大船"),
+        )
+    ),
+
+    Line(
+        lineName = "JR 埼京線",
+        lineColor = Color(0xFF00ac9a),
+        stations = listOf(
+            Station("大崎"),
+            Station("恵比寿"),
+            Station("渋谷"),
+            Station("新宿"),
+            Station("池袋"),
+            Station("板橋"),
+            Station("十条"),
+            Station("赤羽"),
+            Station("北赤羽"),
+            Station("浮間舟渡"),
+            Station("戸田公園"),
+            Station("戸田"),
+            Station("北戸田"),
+            Station("武蔵浦和"),
+            Station("中浦和"),
+            Station("南与野"),
+            Station("与野本町"),
+            Station("北与野"),
+            Station("大宮"),
+            Station("日進"),
+            Station("指扇"),
+            Station("南古谷"),
+            Station("川越"),
+        )
+    ),
+
+    Line(
+        lineName = "JR 山手線",
+        lineColor = Color(0xFF99cc00),
+        stations = listOf(
+            Station("大崎"),
+            Station("五反田"),
+            Station("目黒"),
+            Station("恵比寿"),
+            Station("渋谷"),
+            Station("原宿"),
+            Station("代々木"),
+            Station("新宿"),
+            Station("新大久保"),
+            Station("高田馬場"),
+            Station("目白"),
+            Station("池袋"),
+            Station("大塚"),
+            Station("巣鴨"),
+            Station("駒込"),
+            Station("田端"),
+            Station("西日暮里"),
+            Station("日暮里"),
+            Station("鶯谷"),
+            Station("上野"),
+            Station("御徒町"),
+            Station("秋葉原"),
+            Station("神田"),
+            Station("東京"),
+            Station("有楽町"),
+            Station("新橋"),
+            Station("浜松町"),
+            Station("田町"),
+            Station("高輪ゲートウェイ"),
+            Station("品川"),
+        )
+    ),
+
+
+//    秩父鉄道
+        Line(
+        lineName = "秩父鉄道 秩父本線",
+        lineColor = Color.Blue,
+        stations = listOf(
+            Station("羽生"),
+            Station("西羽生"),
+            Station("新郷"),
+            Station("武州荒木"),
+            Station("東行田"),
+            Station("行田市"),
+            Station("持田"),
+            Station("ソシオ流通センター"),
+            Station("熊谷"),
+            Station("上熊谷"),
+            Station("石原"),
+            Station("ひろせ野鳥の森"),
+            Station("大麻生"),
+            Station("明戸"),
+            Station("武川"),
+            Station("永田"),
+            Station("ふかや花園"),
+            Station("小前田"),
+            Station("桜沢"),
+            Station("寄居"),
+            Station("波久礼"),
+            Station("樋口"),
+            Station("野上"),
+            Station("長瀞"),
+            Station("上長瀞"),
+            Station("親鼻"),
+            Station("皆野"),
+            Station("和銅黒谷"),
+            Station("大野原"),
+            Station("秩父"),
+            Station("御花畑"),
+            Station("影森"),
+            Station("浦山口"),
+            Station("武州中川"),
+            Station("武州日野"),
+            Station("白久"),
+            Station("三峰口"),
+        )
+    ),
+
+
+//    東京メトロ
     Line(
         lineName = "東京メトロ銀座線",
         lineColor = Color(0xFFFF9500),
@@ -521,4 +697,12 @@ val allLinesList = listOf(
             Station("光が丘"),
         )
     ),
-)
+
+//    Line(
+//        lineName = "",
+//        lineColor = Color(0xFF),
+//        stations = listOf(
+//
+//        )
+//    ),
+).sortedBy { it.lineName }
