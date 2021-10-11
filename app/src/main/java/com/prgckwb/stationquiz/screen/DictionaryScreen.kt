@@ -4,16 +4,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.prgckwb.stationquiz.composable.BackButton
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.game.Line
 import com.prgckwb.stationquiz.game.allLinesList
@@ -45,39 +49,41 @@ fun LinesList(navController: NavController) {
                 onClick = { navController.navigate("${ScreenManager.DICTIONARY_STATIONS_SCREEN}/" + line.lineName) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor, contentColor = Color.White)
             ) {
                 Text(text = line.lineName, style = MaterialTheme.typography.h5)
             }
         }
+        
+        item { BackButton(navController = navController) }
     }
 }
 
 @Composable
 fun StationsList(line: Line, navController: NavController) {
     LazyColumn {
-        item {
-            Button(onClick = { navController.navigate(ScreenManager.SELECT_GAME_SCREEN) }) {
-
-            }
-        }
         items(line.stations) { station ->
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(backgroundColor = line.lineColor, contentColor = Color.White)
             ) {
                 Text(text = station.name, style = MaterialTheme.typography.h6)
             }
         }
+        
+        item { BackButton(navController = navController) }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewDictionary() {
-
+    val navController = rememberNavController()
+    DisplayDictionaryScreen(navController = navController)
 }

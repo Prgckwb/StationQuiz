@@ -19,6 +19,7 @@ import com.prgckwb.stationquiz.composable.*
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
+// 画面にSelectGameScreenを表示するコンポーザブル
 @Composable
 fun DisplaySelectGameScreen(navController: NavController) {
     val gameModel = GameModel()
@@ -73,6 +74,7 @@ fun SelectAnswerButtons(
     }
 }
 
+// 状態を管理する、SelectGameのコンポーザブル組み立てよう関数
 @Composable
 fun PlaySelectGame(gameModel: GameModel, step: Int) {
     var station by remember { mutableStateOf(gameModel.currentStation) }
