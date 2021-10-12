@@ -69,18 +69,12 @@ fun DisplayStationsScreen(navController: NavController, lineName: String?) {
 @Composable
 fun DictionaryTitle() {
     Text(
-        text = "駅リスト",
+        text = "路線リスト",
         style = MaterialTheme.typography.h2,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center
     )
 }
-
-@Composable
-fun SearchLine(navController: NavController) {
-
-}
-
 
 @Composable
 fun LinesList(navController: NavController, text: String?) {
