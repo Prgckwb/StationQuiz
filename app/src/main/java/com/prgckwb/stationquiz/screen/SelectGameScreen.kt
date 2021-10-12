@@ -68,7 +68,7 @@ fun SelectAnswerButtons(
                     .fillMaxWidth()
                     .padding(8.dp)
                     .clip(CircleShape),
-                colors = ButtonDefaults.buttonColors(backgroundColor = gameModel.line.lineColor)
+                colors = ButtonDefaults.buttonColors(backgroundColor = gameModel.currentLine.lineColor)
             ) {
                 Text(
                     text = optionsList[it].name,
@@ -100,7 +100,7 @@ fun PlaySelectGame(gameModel: GameModel, step: Int) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum, wasCorrect)
         Spacer(modifier = Modifier.padding(16.dp))
-        ShowLineAndDirection(line = gameModel.line)
+        ShowLineAndDirection(line = gameModel.currentLine)
         Spacer(modifier = Modifier.padding(16.dp))
 //        駅名表示
         StationName(gameModel)

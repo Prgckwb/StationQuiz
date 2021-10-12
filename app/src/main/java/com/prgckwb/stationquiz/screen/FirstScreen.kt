@@ -1,6 +1,5 @@
 package com.prgckwb.stationquiz.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -24,9 +23,7 @@ import com.prgckwb.stationquiz.string.ScreenManager
 // タイトル画面の組み立てコンポーザブル
 @Composable
 fun DisplayTitleScreen(navController: NavController) {
-    Log.d("DEBUG", "DisplayTitleScreen 呼び出し")
-
-    var a by remember { mutableStateOf(0.1f) }
+    var dx by remember { mutableStateOf(0.1f) }
 
     Column {
         Spacer(modifier = Modifier.padding(32.dp))
@@ -35,9 +32,9 @@ fun DisplayTitleScreen(navController: NavController) {
             painter = painterResource(id = R.drawable.wabu_star),
             contentDescription = "わぶすたー",
             alignment = Alignment.Center,
-            modifier = Modifier.padding(horizontal = a.dp)
+            modifier = Modifier.padding(horizontal = dx.dp)
         )
-        a += 0.1f
+        dx += 0.1f
         StartButton(navController = navController)
         DictionaryButton(navController = navController)
     }
@@ -52,7 +49,8 @@ fun TitleText() {
             .fillMaxWidth()
             .fillMaxHeight(0.4f),
         textAlign = TextAlign.Center,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colors.onSurface
     )
 }
 

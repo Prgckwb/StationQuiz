@@ -50,10 +50,9 @@ fun DisplayDictionaryScreen(navController: NavController) {
                 .fillMaxWidth(),
             maxLines = 1,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = {keyboardController?.hide()})
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() })
         )
         LinesList(navController, text)
-
     }
 
 }
@@ -76,6 +75,7 @@ fun DictionaryTitle() {
     )
 }
 
+
 @Composable
 fun LinesList(navController: NavController, text: String?) {
     var lineList = findLines(text)
@@ -94,7 +94,11 @@ fun LinesList(navController: NavController, text: String?) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = line.lineName, style = MaterialTheme.typography.h5, textAlign = TextAlign.Center)
+                Text(
+                    text = line.lineName,
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center
+                )
             }
         }
 

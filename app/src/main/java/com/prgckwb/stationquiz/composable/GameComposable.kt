@@ -141,7 +141,7 @@ fun BottomButtons(navController: NavController, gameModel: GameModel) {
         NavigationButton(navController, ScreenManager.SELECT_GAME_SCREEN, text = "路線を変える")
         NavigationButton(
             navController,
-            ScreenManager.DICTIONARY_STATIONS_SCREEN + "/${gameModel.line.lineName}",
+            ScreenManager.DICTIONARY_STATIONS_SCREEN + "/${gameModel.currentLine.lineName}",
             text = "学習する"
         )
     }
@@ -172,7 +172,7 @@ fun MyButton(modifier: Modifier = Modifier, onClick: () -> Unit, content: @Compo
 
 @Composable
 fun DebugText(gameModel: GameModel, step: Int) {
-    Text(text = "正解:  ${gameModel.line.stations[(gameModel.stationIndex + step) % gameModel.totalStationsNum].name}")
+    Text(text = "正解:  ${gameModel.currentLine.stations[(gameModel.stationIndex + step) % gameModel.totalStationsNum].name}")
 }
 
 

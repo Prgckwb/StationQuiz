@@ -4,15 +4,16 @@ import android.util.Log
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameModel(val line: Line = allLinesList.random()) {
+class GameModel(val currentLine: Line = allLinesList.random()) {
     init {
         Log.d("DEBUG", "GameModel 初期化")
     }
     var score: Int = 0
     var questionNum: Int = 1
-    val totalStationsNum = line.stations.size
+    val totalStationsNum = currentLine.stations.size
+    val totalLinesNum = allLinesList.size
     var stationIndex = Random.nextInt(totalStationsNum)
-    var currentStation: Station = line.stations[stationIndex]
+    var currentStation: Station = currentLine.stations[stationIndex]
 
     companion object{
         fun findLine(lineName: String?): Line {
@@ -24,6 +25,7 @@ class GameModel(val line: Line = allLinesList.random()) {
 
         fun findLines(lineName: String?): List<Line>{
             val list = mutableListOf<Line>()
+
             return if (lineName == null){
                 list
             }else{
@@ -48,10 +50,10 @@ class GameModel(val line: Line = allLinesList.random()) {
     fun getNextStation(): Station {
         this.stationIndex = Random.nextInt(this.totalStationsNum - 1)
 
-        while (line.stations[stationIndex] == currentStation) {
+        while (currentLine.stations[stationIndex] == currentStation) {
             stationIndex = Random.nextInt(this.totalStationsNum - 1)
         }
-        currentStation = line.stations[this.stationIndex]
+        currentStation = currentLine.stations[this.stationIndex]
         return currentStation
     }
 
@@ -62,7 +64,7 @@ class GameModel(val line: Line = allLinesList.random()) {
 
     //    入力した答えが正答と一致しているかを判断する
     fun checkAnswer(answer: String, step: Int): Boolean {
-        val answerString = line.stations[(stationIndex + step) % this.totalStationsNum].name
+        val answerString = currentLine.stations[(stationIndex + step) % this.totalStationsNum].name
         val answerList: MutableList<String> = mutableListOf()
         var uselessChar: Char? = null
 
@@ -96,8 +98,8 @@ class GameModel(val line: Line = allLinesList.random()) {
     //    **二択だとバグが出る**
     fun getStationOptions(optionsNum: Int = 4, step: Int): MutableList<Station> {
         val num = min(optionsNum, totalStationsNum)
-        val shuffledLine: MutableList<Station> = line.stations.shuffled() as MutableList<Station>
-        val answerStation: Station = line.stations[(stationIndex + step) % totalStationsNum]
+        val shuffledLine: MutableList<Station> = currentLine.stations.shuffled() as MutableList<Station>
+        val answerStation: Station = currentLine.stations[(stationIndex + step) % totalStationsNum]
 
         shuffledLine.remove(currentStation)
 
