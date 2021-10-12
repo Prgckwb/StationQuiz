@@ -92,14 +92,16 @@ class GameModel(val line: Line = allLinesList.random()) {
 
     //    optionsNum 個の選択肢を返す関数
 //    返すリストにはstep先の答え駅も含む
+
+    //    **二択だとバグが出る**
     fun getStationOptions(optionsNum: Int = 4, step: Int): MutableList<Station> {
         val num = min(optionsNum, totalStationsNum)
-        val shuffledLine = line.stations.shuffled() as MutableList<Station>
-        val answerStation = line.stations[(stationIndex + step) % totalStationsNum]
+        val shuffledLine: MutableList<Station> = line.stations.shuffled() as MutableList<Station>
+        val answerStation: Station = line.stations[(stationIndex + step) % totalStationsNum]
 
         shuffledLine.remove(currentStation)
 
-        val reShuffledLine = shuffledLine.take(num - 1) as MutableList<Station>
+        val reShuffledLine: MutableList<Station> = shuffledLine.take(num - 1) as MutableList<Station>
         reShuffledLine.add(answerStation)
         reShuffledLine.shuffle()
 

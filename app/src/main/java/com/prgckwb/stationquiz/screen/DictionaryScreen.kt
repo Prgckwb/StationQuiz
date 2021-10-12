@@ -88,10 +88,6 @@ fun LinesList(navController: NavController, text: String?) {
 
     LazyColumn {
         item { DictionaryTitle() }
-
-        item {
-
-        }
         items(lineList) { line ->
             Button(
                 onClick = { navController.navigate("${ScreenManager.DICTIONARY_STATIONS_SCREEN}/" + line.lineName) },
@@ -104,7 +100,7 @@ fun LinesList(navController: NavController, text: String?) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = line.lineName, style = MaterialTheme.typography.h5)
+                Text(text = line.lineName, style = MaterialTheme.typography.h5, textAlign = TextAlign.Center)
             }
         }
 
