@@ -76,7 +76,7 @@ fun StartButton(navController: NavController) {
                     .size(ButtonDefaults.IconSize)
             )
             Text(
-                text = "ゲームスタート！",
+                text = "ランダムな路線で遊ぶ",
                 style = MaterialTheme.typography.h5
             )
         }
@@ -94,7 +94,7 @@ fun DictionaryButton(navController: NavController) {
     ) {
         Icon(imageVector = Icons.Default.Search, contentDescription = null)
         Text(
-            text = "駅リスト",
+            text = "路線・駅を調べる",
             style = MaterialTheme.typography.h5
         )
     }
