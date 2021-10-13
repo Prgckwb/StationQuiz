@@ -14,15 +14,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.game.GameModel.Companion.findLine
-import com.prgckwb.stationquiz.screen.DisplayDictionaryScreen
-import com.prgckwb.stationquiz.screen.DisplaySelectGameScreen
-import com.prgckwb.stationquiz.screen.DisplayStationsScreen
-import com.prgckwb.stationquiz.screen.DisplayTitleScreen
+import com.prgckwb.stationquiz.screen.*
 import com.prgckwb.stationquiz.string.ScreenManager
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
-    @ExperimentalComposeUiApi
-    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("DEBUG", "MainActivity onCreate")
@@ -62,6 +59,13 @@ fun NavigateManager() {
                 navController = navController,
                 GameModel(findLine(it.arguments?.getString("lineName")))
             )
+        }
+
+        composable(
+            "${ScreenManager.WEB_VIEW_SCREEN}/{stationName}",
+            arguments = listOf(navArgument("stationName"){ type = NavType.StringType}),
+        ){
+            WebViewScreen(url = it.arguments?.getString("stationName"))
         }
     }
 }

@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -150,6 +153,7 @@ fun BottomButtons(navController: NavController, gameModel: GameModel) {
 @Composable
 fun BackButton(navController: NavController) {
     MyButton(onClick = { navController.popBackStack() }) {
+        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
         Text(
             text = "もどる",
             textAlign = TextAlign.Center

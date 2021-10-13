@@ -3,9 +3,10 @@ package com.prgckwb.stationquiz.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,6 +68,13 @@ fun StartButton(navController: NavController) {
                 .padding(16.dp)
                 .clip(CircleShape),
         ) {
+            Icon(
+                Icons.Filled.Person,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(4.dp)
+                    .size(ButtonDefaults.IconSize)
+            )
             Text(
                 text = "ゲームスタート！",
                 style = MaterialTheme.typography.h5
@@ -84,6 +92,7 @@ fun DictionaryButton(navController: NavController) {
             .padding(16.dp)
             .clip(CircleShape),
     ) {
+        Icon(imageVector = Icons.Default.Search, contentDescription = null)
         Text(
             text = "駅リスト",
             style = MaterialTheme.typography.h5

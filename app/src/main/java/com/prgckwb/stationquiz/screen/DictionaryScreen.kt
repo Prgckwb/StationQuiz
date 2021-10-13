@@ -78,7 +78,7 @@ fun DictionaryTitle() {
 
 @Composable
 fun LinesList(navController: NavController, text: String?) {
-    var lineList = findLines(text)
+    val lineList = findLines(text)
 
     LazyColumn {
         item { DictionaryTitle() }
@@ -126,7 +126,9 @@ fun StationsList(line: Line, navController: NavController) {
 
         items(line.stations) { station ->
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          navController.navigate("${ScreenManager.WEB_VIEW_SCREEN}/"+ station.name)
+                          },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
