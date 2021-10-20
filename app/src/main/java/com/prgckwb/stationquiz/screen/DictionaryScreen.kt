@@ -127,11 +127,12 @@ fun StationsList(line: Line, navController: NavController) {
         items(line.stations) { station ->
             Button(
                 onClick = {
-                          navController.navigate("${ScreenManager.WEB_VIEW_SCREEN}/"+ station.name)
+                    navController.navigate("${ScreenManager.WEB_VIEW_SCREEN}/"+ station.name)
                           },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .padding(horizontal = 32.dp)
                     .clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = line.lineColor,

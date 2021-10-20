@@ -2,18 +2,16 @@ package com.prgckwb.stationquiz.composable
 
 import android.util.Log
 import androidx.compose.animation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,6 +25,8 @@ import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.game.Line
 import com.prgckwb.stationquiz.screen.DisplaySelectGameScreen
 import com.prgckwb.stationquiz.string.ScreenManager
+import java.util.*
+import android.os.CountDownTimer as CountDownTimer
 
 
 //　何問目かとスコアを表示する
@@ -34,17 +34,18 @@ import com.prgckwb.stationquiz.string.ScreenManager
 @Composable
 fun PrintScore(score: Int, questionNum: Int, wasCorrect: Boolean) {
     val color = if (wasCorrect) Color.Red else Color.Blue
+    var time by remember { mutableStateOf(1000L)}
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
+        modifier = Modifier.fillMaxWidth()
     ) {
         Text(
             text = "${questionNum}問目",
-            Modifier.fillMaxWidth(0.5f),
+            Modifier.fillMaxWidth(0.3f),
             style = MaterialTheme.typography.h5
         )
+        
+//        TimeText(time = 1L)
 
 //        experiment
         AnimatedContent(
@@ -79,8 +80,7 @@ fun ShowLineAndDirection(line: Line) {
             style = MaterialTheme.typography.h4,
             color = line.lineColor,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                .fillMaxWidth(),
             textAlign = TextAlign.Center
         )
         Text(
@@ -100,7 +100,9 @@ fun ShowLineAndDirection(line: Line) {
 @ExperimentalAnimationApi
 @Composable
 fun StationName(gameModel: GameModel) {
-    AnimatedContent(targetState = gameModel.currentStation.name) {
+    AnimatedContent(
+        targetState = gameModel.currentStation.name
+    ) {
         Text(
             text = gameModel.currentStation.name,
             style = MaterialTheme.typography.h2,
@@ -136,7 +138,6 @@ fun NavigationButton(
 
 @Composable
 fun BottomButtons(navController: NavController, gameModel: GameModel) {
-    Log.d("DEBUG", "BottomButtons 呼び出し")
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -162,21 +163,82 @@ fun BackButton(navController: NavController) {
 }
 
 @Composable
-fun MyButton(modifier: Modifier = Modifier, onClick: () -> Unit, content: @Composable () -> Unit) {
+fun MyButton(onClick: () -> Unit, content: @Composable () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier
             .padding(8.dp)
-            .clip(CircleShape),
+            .clip(CircleShape)
     ) {
         content()
     }
 }
 
 
+// 選択肢ボタン
+@Composable
+fun SelectAnswerButtons(
+    gameModel: GameModel,
+    optionsNum: Int,
+    step: Int,
+    onClick: (String) -> Unit
+) {
+    val optionsList = gameModel.getStationOptions(optionsNum, step)
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        repeat(optionsList.size) {
+            val optionStationName = optionsList[it].name
+            Button(
+                onClick = {
+                    onClick(optionStationName)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = gameModel.currentLine.lineColor)
+            ) {
+                Text(
+                    text = optionsList[it].name,
+                    color = Color.White,
+                    style = MaterialTheme.typography.h5
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun TimeText(time: Long){
+    val openDialog = remember { mutableStateOf(false)}
+    
+    Text(text = "押して", modifier = Modifier.clickable { openDialog.value = true })
+    
+    if(openDialog.value){
+        AlertDialog(
+            onDismissRequest = { openDialog.value = false },
+            title = { Text(text = "title属性だよ")},
+            text = { Text(text = "text属性だよ")},
+            confirmButton = {
+                Button(onClick = { openDialog.value = false }) {
+                    Text(text = "Confirmボタン")
+                }
+            },
+        )
+    }
+}
+
+
 @Composable
 fun DebugText(gameModel: GameModel, step: Int) {
-    Text(text = "正解:  ${gameModel.currentLine.stations[(gameModel.stationIndex + step) % gameModel.totalStationsNum].name}")
+    val newIndex = (gameModel.stationIndex + step) % gameModel.totalStationsNum
+    Text(
+        text = "正解:  ${gameModel.currentLine.stations[newIndex].name}",
+    )
 }
 
 
@@ -186,6 +248,6 @@ fun DebugText(gameModel: GameModel, step: Int) {
 fun ComposablePreview() {
     val navController = rememberNavController()
     Column {
-        DisplaySelectGameScreen(navController = navController)
+        DisplaySelectGameScreen(navController = navController, GameModel())
     }
 }

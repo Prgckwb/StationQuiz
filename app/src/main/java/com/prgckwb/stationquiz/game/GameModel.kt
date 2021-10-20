@@ -1,10 +1,11 @@
 package com.prgckwb.stationquiz.game
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameModel(val currentLine: Line = allLinesList.random()) {
+class GameModel(val currentLine: Line = allLinesList.random()): ViewModel() {
     init {
         Log.d("DEBUG", "GameModel 初期化")
     }

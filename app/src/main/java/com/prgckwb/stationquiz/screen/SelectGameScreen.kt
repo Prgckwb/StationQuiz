@@ -6,13 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -20,13 +19,14 @@ import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.composable.*
 import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
+import java.util.*
 
 // 画面にSelectGameScreenを表示するコンポーザブル
 @ExperimentalAnimationApi
 @Composable
 fun DisplaySelectGameScreen(
     navController: NavController,
-    gameModel: GameModel = GameModel()
+    gameModel: GameModel,
 ) {
     Log.d("DEBUG", "DisplaySelectGameScreen 呼び出し")
 
@@ -34,77 +34,40 @@ fun DisplaySelectGameScreen(
         Surface(color = MaterialTheme.colors.background) {
             val stationStep = 1
 
-            Column {
-                PlaySelectGame(gameModel = gameModel, step = stationStep)
-                BottomButtons(navController = navController, gameModel)
+            LazyColumn {
+                item {
+                    PlaySelectGame(gameModel = gameModel, step = stationStep)
+                    BottomButtons(navController = navController, gameModel)
+                }
             }
         }
     }
 }
 
-
-// 選択肢ボタン
-@Composable
-fun SelectAnswerButtons(
-    gameModel: GameModel,
-    optionsNum: Int,
-    step: Int,
-    onClick: (String) -> Unit
-) {
-    val optionsList = gameModel.getStationOptions(optionsNum, step)
-
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        repeat(optionsList.size) {
-            val optionStationName = optionsList[it].name
-            Button(
-                onClick = {
-                    onClick(optionStationName)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .clip(CircleShape),
-                colors = ButtonDefaults.buttonColors(backgroundColor = gameModel.currentLine.lineColor)
-            ) {
-                Text(
-                    text = optionsList[it].name,
-                    color = Color.White,
-                    style = MaterialTheme.typography.h5
-                )
-            }
-        }
-    }
-}
-
-// 状態を管理する、SelectGameのコンポーザブル組み立てよう関数
+// 状態を管理する、SelectGameのコンポーザブル組み立て用の関数
 @ExperimentalAnimationApi
 @Composable
 fun PlaySelectGame(gameModel: GameModel, step: Int) {
-    var station by remember { mutableStateOf(gameModel.currentStation) }
     var questionNum by remember { mutableStateOf(gameModel.questionNum) }
     var score by remember { mutableStateOf(gameModel.score) }
-    var text by remember { mutableStateOf("") }
     var wasCorrect by remember { mutableStateOf(false) }
+    val timer = Timer()
 
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(16.dp)
+            .padding(8.dp)
             .fillMaxWidth(),
     ) {
 //       問題Noとスコアの表示
         PrintScore(score, questionNum, wasCorrect)
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
         ShowLineAndDirection(line = gameModel.currentLine)
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
 //        駅名表示
         StationName(gameModel)
-        Spacer(modifier = Modifier.padding(8.dp))
+        Spacer(modifier = Modifier.padding(4.dp))
 //        問題文表示
         QuestionText(step = step)
         SelectAnswerButtons(gameModel = gameModel, optionsNum = 4, step = step) {
@@ -122,5 +85,5 @@ fun PlaySelectGame(gameModel: GameModel, step: Int) {
 @Composable
 fun PreviewSelectGame() {
     val navController = rememberNavController()
-    DisplaySelectGameScreen(navController = navController)
+    DisplaySelectGameScreen(navController = navController, GameModel())
 }
