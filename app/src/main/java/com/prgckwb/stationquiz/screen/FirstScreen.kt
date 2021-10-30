@@ -47,7 +47,7 @@ fun DisplayTitleScreen(navController: NavController) {
 
 //            タイトル画面の画像をアニメーションさせる
             if(isforwarding){
-                if(dx < 80.0f) dx += 0.5f
+                if(dx < 70.0f) dx += 0.5f
                 else isforwarding = false
             }else{
                 if(dx > 0.1f) dx -= 0.5f
