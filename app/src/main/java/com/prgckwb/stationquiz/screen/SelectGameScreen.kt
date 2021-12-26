@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.prgckwb.stationquiz.composable.*
@@ -37,6 +38,7 @@ fun DisplaySelectGameScreen(
             LazyColumn {
                 item {
                     PlaySelectGame(gameModel = gameModel, step = stationStep)
+                    Spacer(modifier = Modifier.padding(25.dp))
                     BottomButtons(navController = navController, gameModel)
                 }
             }
@@ -53,30 +55,67 @@ fun PlaySelectGame(gameModel: GameModel, step: Int) {
     var wasCorrect by remember { mutableStateOf(false) }
     val timer = Timer()
 
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-    ) {
+    ConstraintLayout() {
+        val (column, buttons) = createRefs()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+                .constrainAs(column) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
+            ,
+        ) {
 //       問題Noとスコアの表示
-        PrintScore(score, questionNum, wasCorrect)
-        Spacer(modifier = Modifier.padding(8.dp))
-        ShowLineAndDirection(line = gameModel.currentLine)
-        Spacer(modifier = Modifier.padding(8.dp))
+            PrintScore(score, questionNum, wasCorrect)
+            Spacer(modifier = Modifier.padding(16.dp))
+            ShowLineAndDirection(line = gameModel.currentLine)
+            Spacer(modifier = Modifier.padding(8.dp))
 //        駅名表示
-        StationName(gameModel)
-        Spacer(modifier = Modifier.padding(4.dp))
+            StationName(gameModel)
+            Spacer(modifier = Modifier.padding(4.dp))
 //        問題文表示
-        QuestionText(step = step)
-        SelectAnswerButtons(gameModel = gameModel, optionsNum = 4, step = step) {
-            wasCorrect = gameModel.checkAnswer(it, step)
-            score = gameModel.score
-            questionNum = gameModel.questionNum
+            QuestionText(step = step)
+            Spacer(modifier = Modifier.padding(10.dp))
+            SelectAnswerButtons(
+                gameModel = gameModel,
+                optionsNum = 4, step = step,
+            ) {
+                wasCorrect = gameModel.checkAnswer(it, step)
+                score = gameModel.score
+                questionNum = gameModel.questionNum
+            }
+//            DebugText(gameModel = gameModel, step)
         }
-        DebugText(gameModel = gameModel, step)
     }
+
+//
+//    Column(
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        modifier = Modifier
+//            .padding(8.dp)
+//            .fillMaxWidth(),
+//    ) {
+////       問題Noとスコアの表示
+//        PrintScore(score, questionNum, wasCorrect)
+//        Spacer(modifier = Modifier.padding(8.dp))
+//        ShowLineAndDirection(line = gameModel.currentLine)
+//        Spacer(modifier = Modifier.padding(8.dp))
+////        駅名表示
+//        StationName(gameModel)
+//        Spacer(modifier = Modifier.padding(4.dp))
+////        問題文表示
+//        QuestionText(step = step)
+//        SelectAnswerButtons(gameModel = gameModel, optionsNum = 4, step = step) {
+//            wasCorrect = gameModel.checkAnswer(it, step)
+//            score = gameModel.score
+//            questionNum = gameModel.questionNum
+//        }
+//        DebugText(gameModel = gameModel, step)
+//    }
 }
 
 

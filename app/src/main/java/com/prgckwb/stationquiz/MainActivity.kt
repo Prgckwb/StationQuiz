@@ -16,16 +16,18 @@ import com.prgckwb.stationquiz.game.GameModel
 import com.prgckwb.stationquiz.game.GameModel.Companion.findLine
 import com.prgckwb.stationquiz.screen.*
 import com.prgckwb.stationquiz.string.ScreenManager
+import com.prgckwb.stationquiz.ui.theme.StationQuizTheme
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("DEBUG", "MainActivity onCreate")
 
         setContent {
-            NavigateManager()
+            StationQuizTheme() {
+                NavigateManager()
+            }
         }
     }
 }

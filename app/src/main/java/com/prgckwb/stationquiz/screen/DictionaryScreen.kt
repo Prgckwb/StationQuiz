@@ -2,6 +2,7 @@ package com.prgckwb.stationquiz.screen
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -110,6 +111,7 @@ fun LinesList(navController: NavController, text: String?) {
 fun StationsList(line: Line, navController: NavController) {
     LazyColumn {
         item {
+            Spacer(modifier = Modifier.padding(16.dp))
             ShowLineAndDirection(line = line)
         }
 
@@ -132,7 +134,7 @@ fun StationsList(line: Line, navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .padding(horizontal = 32.dp)
+                    .padding(horizontal = 8.dp)
                     .clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = line.lineColor,

@@ -331,7 +331,7 @@ val jrHokkaidoLines = listOf(
         )
     ),
     Line(
-        lineName = "JR北海道 根室本線(滝川～新得)",
+        lineName = "JR北海道 根室本線\n(滝川～新得)",
         lineColor = Color(0xFFf6989d),
         stations = listOf(
             Station("滝川"),
@@ -355,7 +355,7 @@ val jrHokkaidoLines = listOf(
         )
     ),
     Line(
-        lineName = "JR北海道 根室本線(新得～釧路)",
+        lineName = "JR北海道 根室本\n(新得～釧路)",
         lineColor = Color(0xFF8cc63e),
         stations = listOf(
             Station("新得"),

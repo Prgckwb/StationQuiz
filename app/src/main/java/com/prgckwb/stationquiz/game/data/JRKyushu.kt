@@ -288,7 +288,7 @@ val jrKyusyuLines = listOf(
         )
     ),
     Line(
-        lineName = "JR九州 日豊本線(門司港～佐伯)",
+        lineName = "JR九州 日豊本線\n(門司港～佐伯)",
         lineColor = Color(0xFF0095d9),
         stations = listOf(
             Station("門司港"),
@@ -354,7 +354,7 @@ val jrKyusyuLines = listOf(
         )
     ),
     Line(
-        lineName = "JR九州 日豊本線(佐伯～鹿児島中央)",
+        lineName = "JR九州 日豊本\n(佐伯～鹿児島中央)",
         lineColor = Color(0xFF0095d9),
         stations = listOf(
             Station("佐伯"),
@@ -629,7 +629,7 @@ val jrKyusyuLines = listOf(
         )
     ),
     Line(
-        lineName = "JR九州 JR筑肥線(西唐津～伊万里)",
+        lineName = "JR九州 筑肥\n(西唐津～伊万里)",
         lineColor = Color(0xFF8f3e97),
         stations = listOf(
             Station("西唐津"),
